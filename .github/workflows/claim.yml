@@ -18,4 +18,3 @@ jobs:
           EG_EMAIL: ${{ secrets.EG_EMAIL }}
           EG_PASSWORD: ${{ secrets.EG_PASSWORD }}
         run: node epic-games
-￼Enter
