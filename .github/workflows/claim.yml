@@ -1,20 +1,29 @@
-name: Epic Games Claimer
+name: Epic Games Claimer (Windows)
 on:
-  workflow_dispatch:
+  workflow_dispatch: # Manuel başlatma butonu
   schedule:
-    - cron: '0 19 * * 4'
+    - cron: '0 19 * * 4' # Her Perşembe akşamı
 jobs:
   claim:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest # Windows sunucusu kullan
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm install --include=dev
-      - run: npx playwright install firefox --with-deps
+
+      - name: Install Dependencies
+        run: npm install --include=dev
+
+      - name: Install Playwright Browsers
+        run: npx playwright install firefox --with-deps
+
       - name: Run Claimer
+        shell: pwsh # Windows üzerinde PowerShell kullanır
         env:
-          EG_EMAIL: ${{ secrets.EG_EMAIL }}
-          EG_PASSWORD: ${{ secrets.EG_PASSWORD }}
-        run: npm start -- --epic-games epic-games # Bu komut vogler reposu için da
+          EG_EMAIL: ${{ secrets.EG_EMAIL }} #
+          EG_PASSWORD: ${{ secrets.EG_PASSWORD }} #
+        run: npm start -- --epic-games #
+
